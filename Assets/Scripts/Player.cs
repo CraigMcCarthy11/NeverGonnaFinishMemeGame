@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
             }
             else if (primaryWeapon.NeedsReload())
             {
-                Debug.Log("Needs Reload");
+                //Debug.Log("Needs Reload");
             }
         }
 
