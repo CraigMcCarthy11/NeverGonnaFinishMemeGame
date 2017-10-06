@@ -11,11 +11,7 @@ public class Player : MonoBehaviour {
     public float health;
 
     public GameObject playerObj;
-
-    public GameObject bulletSpawnPoint;
-    public GameObject bullet;
-
-    private Transform bulletSpawned;
+    public Gun primaryWeapon;
 
     //Methods
     private void Start()
@@ -53,8 +49,21 @@ public class Player : MonoBehaviour {
             transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
 
         //Shooting
-        if (Input.GetMouseButtonDown(0)){
-            Shoot();
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+        {
+            if(primaryWeapon.CanFire())
+            {
+                primaryWeapon.Fire();
+            }
+            else if (primaryWeapon.NeedsReload())
+            {
+                Debug.Log("Needs Reload");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            primaryWeapon.Reload();
         }
 
         //Player Death
@@ -62,12 +71,6 @@ public class Player : MonoBehaviour {
         {
             Die();
         }
-    }
-
-    void Shoot()
-    {
-        bulletSpawned = Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
-        bulletSpawned.rotation = bulletSpawnPoint.transform.rotation;
     }
 
     public void Die()

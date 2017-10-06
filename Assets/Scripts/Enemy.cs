@@ -9,22 +9,16 @@ public class Enemy : MonoBehaviour {
     public float pointsToGive;
 
     public GameObject player;
-    public GameObject bullet;
-    public Transform bulletSpawnPoint;
-
-    private Transform bulletSpawned;
+    public Gun primaryWeapon;
 
     public float waitTime;
 
     private float currentTime;
-    private bool shot;
 
     //Methods
     public void Start()
     {
         player = GameObject.FindWithTag("Player");
-
-        bulletSpawnPoint = this.transform.GetChild(0).GetChild(2);
     }
 
     public void Update()
@@ -36,10 +30,20 @@ public class Enemy : MonoBehaviour {
 
         this.transform.LookAt(player.transform);
 
-        if(currentTime == 0)
-            Shoot();
-        
-        if (shot && currentTime < waitTime)
+        if (currentTime == 0)
+        {
+            if (primaryWeapon.CanFire())
+            {
+                primaryWeapon.Fire();
+            }
+            else if(primaryWeapon.NeedsReload())
+            {
+                primaryWeapon.Reload();
+            }
+        }
+
+
+        if (currentTime < waitTime)
             currentTime += 1 * Time.deltaTime;
 
         if (currentTime >= waitTime)
@@ -51,13 +55,5 @@ public class Enemy : MonoBehaviour {
         Destroy(this.gameObject);
 
         player.GetComponent<Player>().points += pointsToGive;
-    }
-
-    public void Shoot()
-    {
-        shot = true;
-
-        bulletSpawned = Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
-        bulletSpawned.rotation = this.transform.rotation;
     }
 }
