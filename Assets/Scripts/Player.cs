@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     //Variables
-    public float movementSpeed;
+    public float moveSpeed;
     public float points;
     public float maxHealth;
     public float health;
@@ -13,12 +13,18 @@ public class Player : MonoBehaviour {
     public GameObject playerObj;
     public Gun primaryWeapon;
 
+    private Rigidbody rigidBody;
+    private Vector3 moveInput;
+    private Vector3 moveVelocity;
+
     //Methods
     private void Start()
     {
+        rigidBody = GetComponent<Rigidbody>();
         health = maxHealth;
     }
 
+    //Update is called before rendering a frame (game code goes here)
     private void Update()
     {
         //Player facing mouse
@@ -35,18 +41,10 @@ public class Player : MonoBehaviour {
             playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);
         }
 
-        //Player Movement
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        
-        if (Input.GetKey(KeyCode.A))
-            transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-        
-        if (Input.GetKey(KeyCode.S))
-            transform.Translate(Vector3.back * movementSpeed * Time.deltaTime);
-        
-        if (Input.GetKey(KeyCode.D))
-            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+        //Player Movement from inputmanager
+        //We use getaxis because it stops movement when you let it go instead of lerping
+        moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+        moveVelocity = moveInput * moveSpeed;
 
         //Shooting
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
@@ -71,6 +69,12 @@ public class Player : MonoBehaviour {
         {
             Die();
         }
+    }
+
+    //FixedUpdate is called just before any physics calculations, so physics code goes in this
+    private void FixedUpdate()
+    {
+        rigidBody.velocity = moveVelocity;
     }
 
     public void Die()
