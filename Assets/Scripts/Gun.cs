@@ -3,19 +3,22 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour {
 
-    public Transform bulletSpawnPoint;
-    public Transform bullet;
+    public Transform bulletFirePoint;
+    public Bullet bullet;
 
     public int clipSize;
     public int clips;
     public int bulletDamage;
     public float fireRate;
     public float reloadRate;
-    public bool infiniteAmmo;
+    public float projectileSpeed;
 
     private bool canFire = true;
     private bool canReload = true;
     private int bulletsInClip;
+
+    //Developer stuff
+    public bool infiniteAmmo;
 
     private void Start()
     {
@@ -28,11 +31,13 @@ public class Gun : MonoBehaviour {
         bulletsInClip = clipSize;
     }
 
+    //Called by the unit using it to check if we can fire
     public bool CanFire()
     {
         return canFire && bulletsInClip > 0 && canReload;
     }
 
+    //Fires the weapon per projectile
     public void Fire()
     {
         // blat blat blat
@@ -40,20 +45,25 @@ public class Gun : MonoBehaviour {
 
         bulletsInClip--;
 
-        Transform bulletSpawned = Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
-        bulletSpawned.rotation = bulletSpawnPoint.transform.rotation;
+        //Creates the projectile
+        Bullet bulletSpawned = Instantiate(bullet, bulletFirePoint.position, bulletFirePoint.rotation);
+        bulletSpawned.speed = projectileSpeed;
 
+        //Starts the cooldown before next projectile
         StartCoroutine(FireTimer());
     }
 
+    //Called by the unit to check if we need to reload
     public bool NeedsReload()
     {
         return bulletsInClip <= 0;
     }
 
+    //Reloads the weapon
     public void Reload()
     {
         if (canReload) {
+            //Check if we have the ammo to do it
             if (clips > 0 || infiniteAmmo)
             {
                 bulletsInClip = clipSize;
@@ -61,6 +71,8 @@ public class Gun : MonoBehaviour {
 
                 canFire = false;
                 canReload = false;
+
+                //Starts the timer for reloading
                 StartCoroutine(ReloadTimer());
             }
         }

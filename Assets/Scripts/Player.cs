@@ -28,17 +28,25 @@ public class Player : MonoBehaviour {
     private void Update()
     {
         //Player facing mouse
+        //Plane gets created facing upwards at where the player is at
         Plane playerPlane = new Plane(Vector3.up, transform.position);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float hitDist = 0.0f;
+        //Distance of ray
+        float hitDist;
 
         if (playerPlane.Raycast(ray, out hitDist))
         {
+            //raycast hit point
             Vector3 targetPoint = ray.GetPoint(hitDist);
-            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+
+            //Slow movement aiming
+            /*Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
             targetRotation.x = 0;
             targetRotation.z = 0;
-            playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);
+            playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);*/
+
+            //Fast movement aiming
+            transform.LookAt(new Vector3(targetPoint.x, transform.position.y, targetPoint.z));
         }
 
         //Player Movement from inputmanager
@@ -47,7 +55,7 @@ public class Player : MonoBehaviour {
         moveVelocity = moveInput * moveSpeed;
 
         //Shooting
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if(primaryWeapon.CanFire())
             {

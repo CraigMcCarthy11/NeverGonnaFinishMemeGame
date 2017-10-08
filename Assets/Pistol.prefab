@@ -300,12 +300,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e50fb2439294f489587b55cbf97a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpawnPoint: {fileID: 4597293114440594}
-  bullet: {fileID: 4348448274985690, guid: ab76545665e392a49b72b7eb5d2b8c3b, type: 2}
+  bulletFirePoint: {fileID: 4597293114440594}
+  bullet: {fileID: 114055279061059184, guid: ab76545665e392a49b72b7eb5d2b8c3b, type: 2}
   clipSize: 10
   clips: 6
   bulletDamage: 20
   fireRate: 0.2
   reloadRate: 2
+  projectileSpeed: 10
   infiniteAmmo: 1
-  bulletsInClip: 0
