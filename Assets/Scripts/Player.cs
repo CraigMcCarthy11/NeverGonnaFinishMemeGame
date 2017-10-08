@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
     public float maxHealth;
     public float health;
 
+    public bool useController;
+
     public GameObject playerObj;
     public Gun primaryWeapon;
 
@@ -27,55 +29,81 @@ public class Player : MonoBehaviour {
     //Update is called before rendering a frame (game code goes here)
     private void Update()
     {
-        //Player facing mouse
-        //Plane gets created facing upwards at where the player is at
-        Plane playerPlane = new Plane(Vector3.up, transform.position);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Distance of ray
-        float hitDist;
-
-        if (playerPlane.Raycast(ray, out hitDist))
-        {
-            //raycast hit point
-            Vector3 targetPoint = ray.GetPoint(hitDist);
-
-            //Slow movement aiming
-            /*Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-            targetRotation.x = 0;
-            targetRotation.z = 0;
-            playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);*/
-
-            //Fast movement aiming
-            transform.LookAt(new Vector3(targetPoint.x, transform.position.y, targetPoint.z));
-        }
-
         //Player Movement from inputmanager
         //We use getaxis because it stops movement when you let it go instead of lerping
         moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput * moveSpeed;
 
-        //Shooting
-        if (Input.GetMouseButtonDown(0))
+        //Good ol' keyboard and mouse controls
+        if (!useController)
         {
-            if(primaryWeapon.CanFire())
+            //Player facing mouse
+            //Plane gets created facing upwards at where the player is at
+            Plane playerPlane = new Plane(Vector3.up, transform.position);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //Distance of ray
+            float hitDist;
+
+            if (playerPlane.Raycast(ray, out hitDist))
             {
-                primaryWeapon.Fire();
+                //raycast hit point
+                Vector3 targetPoint = ray.GetPoint(hitDist);
+
+                //Slow movement aiming
+                /*Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+                targetRotation.x = 0;
+                targetRotation.z = 0;
+                playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);*/
+
+                //Fast movement aiming
+                transform.LookAt(new Vector3(targetPoint.x, transform.position.y, targetPoint.z));
             }
-            else if (primaryWeapon.NeedsReload())
+
+            //Shooting
+            if (Input.GetMouseButtonDown(0))
             {
-                //Debug.Log("Needs Reload");
+                UseActiveWeapon();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                primaryWeapon.Reload();
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
+        else //Newfangled controller controls
         {
-            primaryWeapon.Reload();
+            //Get the direction on the joystick, get rid of the '-' near the end to make controls inverted
+            Vector3 playerDirection = Vector3.right * Input.GetAxisRaw("RHorizontal") + Vector3.forward * -Input.GetAxisRaw("RVertical");
+            
+            //If theres any movement rotate the player
+            if(playerDirection.sqrMagnitude > 0.0f)
+            {
+                transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+            }
+
+            //Right bumper on xbox controller
+            if (Input.GetKeyDown(KeyCode.Joystick1Button5))
+            {
+                UseActiveWeapon();
+            }
         }
 
         //Player Death
         if (health <= 0)
         {
             Die();
+        }
+    }
+
+    private void UseActiveWeapon()
+    {
+        if (primaryWeapon.CanFire())
+        {
+            primaryWeapon.Fire();
+        }
+        else if (primaryWeapon.NeedsReload())
+        {
+            //Debug.Log("Needs Reload");
         }
     }
 
