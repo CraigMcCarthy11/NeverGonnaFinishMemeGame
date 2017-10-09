@@ -42,6 +42,7 @@ public class Bullet : MonoBehaviour {
         if (other.tag == "Player")
         {
             player.GetComponent<Player>().health -= 20;
+            Destroy(this.gameObject);
         }
     }
 }

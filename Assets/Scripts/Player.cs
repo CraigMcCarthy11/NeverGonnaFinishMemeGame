@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
             }
 
             //Shooting
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && primaryWeapon.gunType == Gun.GunType.Assault))
             {
                 UseActiveWeapon();
             }
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour {
 
     public void Die()
     {
-        print("You dieded");
+        //print("You dieded");
     }
 
 }

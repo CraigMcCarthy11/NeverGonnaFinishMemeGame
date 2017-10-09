@@ -3,8 +3,16 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour {
 
+    public enum GunType
+    {
+        Pistol,
+        Assault,
+        Sniper
+    };
+
     public Transform bulletFirePoint;
     public Bullet bullet;
+    public GunType gunType;
 
     public int clipSize;
     public int clips;
