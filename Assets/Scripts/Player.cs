@@ -6,7 +6,6 @@ public class Player : MonoBehaviour {
 
     //Variables
     public float moveSpeed;
-    public float points;
     public float maxHealth;
     public float health;
 

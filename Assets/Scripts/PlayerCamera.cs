@@ -1,24 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour {
 
-    //Variables
     public Transform player;
-    public float smooth = 0.3f;
-    public float height;
 
-    private Vector3 velocity = Vector3.zero;
+    public float smoothSpeed = 0.125f;
+    public Vector3 offset;
 
-    //Methods
-    private void Update()
+    private Rigidbody playersRb;
+    private Vector3 playerVelocity;
+
+    private void Start()
     {
-        Vector3 pos = new Vector3();
-        pos.x = player.position.x;
-        pos.y = player.position.y + height;
-        pos.z = player.position.z - 7f;
-        transform.position = Vector3.SmoothDamp(transform.position, pos, ref velocity, smooth);
+        playersRb = player.gameObject.GetComponent<Rigidbody>();
+    }
+    //You need to use whatever update the players movement is being calculated in
+    private void FixedUpdate()
+    {
+        playerVelocity = playersRb.velocity;
+        Vector3 toPosition = player.position + offset;
+        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, toPosition, ref playerVelocity, smoothSpeed);
+        transform.position = smoothedPosition;
+
+        transform.LookAt(player);
     }
 
 }

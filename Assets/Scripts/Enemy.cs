@@ -53,7 +53,5 @@ public class Enemy : MonoBehaviour {
     public void Die()
     {
         Destroy(this.gameObject);
-
-        player.GetComponent<Player>().points += pointsToGive;
     }
 }
