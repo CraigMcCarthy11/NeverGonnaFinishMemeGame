@@ -53,12 +53,17 @@ public class PlayerInput : MonoBehaviour {
             //Shooting
             if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && thisPlayer.primaryWeapon.gunType == Gun.GunType.Assault))
             {
-                thisPlayer.UseActiveWeapon();
+                thisPlayer.FireWeapon();
             }
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                thisPlayer.primaryWeapon.Reload();
+                thisPlayer.ReloadWeapon();
+            }
+
+            if(Input.GetAxis("Mouse ScrollWheel") != 0)
+            {
+                thisPlayer.SwapWeapon();
             }
         }
         else //Newfangled controller controls
@@ -75,7 +80,7 @@ public class PlayerInput : MonoBehaviour {
             //Right bumper on xbox controller
             if (Input.GetKeyDown(KeyCode.Joystick1Button5))
             {
-                thisPlayer.UseActiveWeapon();
+                thisPlayer.FireWeapon();
             }
         }
     }
