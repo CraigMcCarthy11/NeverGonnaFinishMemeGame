@@ -26,6 +26,7 @@ public class Gun : MonoBehaviour {
 
     private bool canFire = true;
     private bool canReload = true;
+    private bool swapped = false;
 
     //Developer stuff
     public bool infiniteAmmo;
@@ -81,6 +82,22 @@ public class Gun : MonoBehaviour {
                 StartCoroutine(ReloadTimer());
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        if (swapped)
+        {
+            canFire = false;
+            canReload = false;
+            swapped = false;
+            StartCoroutine(ReloadTimer());
+        }
+    }
+
+    private void OnDisable()
+    {
+        swapped = true;
     }
 
     private IEnumerator FireTimer()
