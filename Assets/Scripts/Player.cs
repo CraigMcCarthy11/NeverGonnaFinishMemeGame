@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     public float health;
 
     //Associated Object Elements
-    public GameObject playerObj;
     public Gun primaryWeapon;
     public Gun secondaryWeapon;
     public Gun currentWeapon;

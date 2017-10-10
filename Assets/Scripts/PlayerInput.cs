@@ -85,7 +85,6 @@ public class PlayerInput : MonoBehaviour {
         }
     }
 
-
     //FixedUpdate is called just before any physics calculations, so physics code goes in this
     private void FixedUpdate()
     {
