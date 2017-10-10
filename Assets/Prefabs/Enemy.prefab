@@ -378,12 +378,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletFirePoint: {fileID: 4634570991064294}
   bullet: {fileID: 114570540708327118, guid: 7ef01464f45ab8846a0f4e41d05e5737, type: 2}
+  gunType: 0
   clipSize: 10
   clips: 6
-  bulletDamage: 20
   fireRate: 0.2
   reloadRate: 2
   projectileSpeed: 10
+  bulletRange: 5
+  bulletDamage: 20
   infiniteAmmo: 1
 --- !u!114 &114670536164913176
 MonoBehaviour:

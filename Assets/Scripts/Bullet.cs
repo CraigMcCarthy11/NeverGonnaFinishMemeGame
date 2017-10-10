@@ -5,27 +5,27 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 
     //Variables
-    public float speed;
-    public float maxDistance;
-    public float damage;
+    private float speed;
+    private float maxDistance;
+    private float damage;
 
-    private GameObject triggeringEnemy;
-
-    private GameObject player;
+    private float distance = 0;
 
     //Methods
 
-    private void Start()
+    public void Initialize(float speed, float maxDistance, float damage)
     {
-        player = GameObject.FindWithTag("Player");
+        this.speed = speed;
+        this.maxDistance = maxDistance;
+        this.damage = damage;
     }
 
     private void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
-        maxDistance += 1 * Time.deltaTime;
+        distance += 1 * Time.deltaTime;
 
-        if (maxDistance >= 5)
+        if (distance >= maxDistance)
             Destroy(this.gameObject);
         
     }
@@ -34,14 +34,15 @@ public class Bullet : MonoBehaviour {
     {
         if (other.tag == "Enemy")
         {
-            triggeringEnemy = other.gameObject;
-            triggeringEnemy.GetComponent<Enemy>().health -= damage;
+            GameObject triggeringEnemy = other.gameObject;
+            triggeringEnemy.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(this.gameObject);
         }
 
         if (other.tag == "Player")
         {
-            player.GetComponent<Player>().health -= 20;
+            GameObject triggeringPlayer = other.gameObject;
+            triggeringPlayer.GetComponent<Player>().TakeDamage(damage);
             Destroy(this.gameObject);
         }
     }

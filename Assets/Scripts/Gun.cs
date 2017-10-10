@@ -13,28 +13,25 @@ public class Gun : MonoBehaviour {
     public Transform bulletFirePoint;
     public Bullet bullet;
     public GunType gunType;
+    public Sprite gunSprite;
 
     public int clipSize;
     public int clips;
-    public int bulletDamage;
+    public int bulletsInClip;
     public float fireRate;
     public float reloadRate;
     public float projectileSpeed;
+    public int bulletRange;
+    public int bulletDamage;
 
     private bool canFire = true;
     private bool canReload = true;
-    private int bulletsInClip;
 
     //Developer stuff
     public bool infiniteAmmo;
 
-    private void Start()
-    {
-        Initialize();
-    }
-
     // Load the initial clip
-    protected void Initialize()
+    public void Initialize()
     {
         bulletsInClip = clipSize;
     }
@@ -55,7 +52,7 @@ public class Gun : MonoBehaviour {
 
         //Creates the projectile
         Bullet bulletSpawned = Instantiate(bullet, bulletFirePoint.position, bulletFirePoint.rotation);
-        bulletSpawned.speed = projectileSpeed;
+        bulletSpawned.Initialize(projectileSpeed, bulletRange, bulletDamage);
 
         //Starts the cooldown before next projectile
         StartCoroutine(FireTimer());
@@ -70,12 +67,12 @@ public class Gun : MonoBehaviour {
     //Reloads the weapon
     public void Reload()
     {
-        if (canReload) {
+        if (canReload && bulletsInClip < clipSize) {
             //Check if we have the ammo to do it
             if (clips > 0 || infiniteAmmo)
             {
                 bulletsInClip = clipSize;
-                clips--;
+                if(!infiniteAmmo) { clips--; }
 
                 canFire = false;
                 canReload = false;

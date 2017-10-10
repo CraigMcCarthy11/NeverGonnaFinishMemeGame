@@ -19,15 +19,11 @@ public class Enemy : MonoBehaviour {
     public void Start()
     {
         player = GameObject.FindWithTag("Player");
+        primaryWeapon.Initialize();
     }
 
     public void Update()
     {
-        if(health <= 0)
-        {
-            Die();
-        }
-
         this.transform.LookAt(player.transform);
 
         if (currentTime == 0)
@@ -50,8 +46,20 @@ public class Enemy : MonoBehaviour {
             currentTime = 0;
     }
 
-    public void Die()
+    private void Die()
     {
         Destroy(this.gameObject);
+    }
+
+    public void TakeDamage(float points)
+    {
+        var h = health;
+        h -= points;
+        if (h <= 0)
+        {
+            h = 0;
+            Die();
+        }
+        health = h;
     }
 }
