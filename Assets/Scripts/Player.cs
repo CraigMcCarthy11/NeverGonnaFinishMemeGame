@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Updates weapon HUD values
     /// </summary>
-    private void UpdateHUD()
+    public void UpdateHUD()
     {
         bulletsInClipText.text = currentWeapon.bulletsInClip + "<color=#ffffff77>/</color>" + currentWeapon.clipSize;
         clipsText.text = currentWeapon.infiniteAmmo ? "~" : currentWeapon.clips.ToString();
@@ -58,6 +59,9 @@ public class Player : MonoBehaviour
     private void Die()
     {
         //print("You dieded");
+
+        //uses UnityEngine.SceneManagement to load the active scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     /// <summary>

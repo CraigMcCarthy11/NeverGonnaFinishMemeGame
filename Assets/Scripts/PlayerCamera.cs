@@ -14,6 +14,7 @@ public class PlayerCamera : MonoBehaviour {
     {
         playersRb = player.gameObject.GetComponent<Rigidbody>();
     }
+
     //You need to use whatever update the players movement is being calculated in
     private void FixedUpdate()
     {
