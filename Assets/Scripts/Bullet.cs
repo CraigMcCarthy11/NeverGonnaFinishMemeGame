@@ -37,17 +37,12 @@ public class Bullet : MonoBehaviour
         {
             GameObject triggeringEnemy = other.gameObject;
             triggeringEnemy.GetComponent<Enemy>().TakeDamage(damage);
-            Destroy(this.gameObject);
         }
         else if (other.tag == "Player")
         {
             GameObject triggeringPlayer = other.gameObject;
             triggeringPlayer.GetComponent<Player>().TakeDamage(damage);
-            Destroy(this.gameObject);
         }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }
