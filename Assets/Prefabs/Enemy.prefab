@@ -19,9 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4634570991064294}
-  - component: {fileID: 33845388967306448}
-  - component: {fileID: 65180057151324232}
-  - component: {fileID: 23684267368636504}
   m_Layer: 0
   m_Name: Bullet Spawn Point
   m_TagString: Untagged
@@ -106,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1840730126725088}
   m_LocalRotation: {x: -0, y: -0.9099482, z: -0, w: 0.41472194}
-  m_LocalPosition: {x: 9.29, y: 0.653, z: 5.39}
+  m_LocalPosition: {x: 9.29, y: 0.5, z: 5.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4636016606294432}
@@ -121,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 1013220564031894}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01365, z: 0.028290004}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4636016606294432}
   m_RootOrder: 2
@@ -266,38 +263,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23684267368636504
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013220564031894}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 86fdb82df75f389468cf884dc5ab078a, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &33621851700260192
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -312,13 +277,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378825081105684}
   m_Mesh: {fileID: 4300000, guid: 15f2ea0a1514f834dbfcc8b36025c207, type: 3}
---- !u!33 &33845388967306448
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013220564031894}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33966580564560992
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -341,18 +299,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65180057151324232
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013220564031894}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65998866951337838
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -377,10 +323,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletFirePoint: {fileID: 4634570991064294}
-  bullet: {fileID: 114570540708327118, guid: 7ef01464f45ab8846a0f4e41d05e5737, type: 2}
+  bullet: {fileID: 114318724965741808, guid: 7ef01464f45ab8846a0f4e41d05e5737, type: 2}
   gunType: 0
+  gunSprite: {fileID: 0}
   clipSize: 10
   clips: 6
+  bulletsInClip: 0
   fireRate: 0.2
   reloadRate: 2
   projectileSpeed: 10

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4761437791490198}
   - component: {fileID: 33845421475688924}
   - component: {fileID: 135030980047514892}
-  - component: {fileID: 114570540708327118}
+  - component: {fileID: 114318724965741808}
   - component: {fileID: 96145204844163828}
   m_Layer: 0
   m_Name: Pistol_Bullet
@@ -282,7 +282,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!114 &114570540708327118
+--- !u!114 &114318724965741808
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -293,9 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f91a5ddac11c74189e235994236bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  maxDistance: 0
-  damage: 25
 --- !u!135 &135030980047514892
 SphereCollider:
   m_ObjectHideFlags: 1

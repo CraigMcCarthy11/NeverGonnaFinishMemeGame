@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour
+{
 
     //Variables
     private float speed;
@@ -27,7 +28,7 @@ public class Bullet : MonoBehaviour {
 
         if (distance >= maxDistance)
             Destroy(this.gameObject);
-        
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -38,11 +39,14 @@ public class Bullet : MonoBehaviour {
             triggeringEnemy.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(this.gameObject);
         }
-
-        if (other.tag == "Player")
+        else if (other.tag == "Player")
         {
             GameObject triggeringPlayer = other.gameObject;
             triggeringPlayer.GetComponent<Player>().TakeDamage(damage);
+            Destroy(this.gameObject);
+        }
+        else
+        {
             Destroy(this.gameObject);
         }
     }
